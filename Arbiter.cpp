@@ -35,7 +35,8 @@ bool checkBishop(int diff)
 }
 
 bool checkRook(int diff)
-{
+{ if (diff ==1||diff==-1||diff==8||diff==-8)
+    return true;
 	return false;
 }
 
