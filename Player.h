@@ -3,7 +3,7 @@
 class Player
 {
 private:
-	Board* board;
+	Board *board;
 	bool whiteTurn = true;
 public:
 	Player(Board *board);

@@ -20,10 +20,14 @@ void Player::movePiece()
 	
 	//int startind = math start
 	//endind = math end
-	//diff
-	// checkMove(iterator, diff, whiteTurn)
-	//edit board
+	int diff = 3;
+	auto initpos = board->begin();
+	advance(initpos, diff);
+	if (checkMove(board->begin(), initpos, diff, whiteTurn)) {
+		//move
+	}
 
+	//edit board
 	whiteTurn = !whiteTurn;
 
 }

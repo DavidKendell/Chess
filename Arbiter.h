@@ -1,10 +1,10 @@
 #pragma once
 #include "Board.h"
 
-bool checkMove(Board::iterator start, int diff, bool playerColour);
-bool checkKing(int diff);
-bool checkQueen(int diff);
-bool checkKnight(int diff);
-bool checkBishop(int diff);
-bool checkRook(int diff);
-bool checkPawn(int diff);
+bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool playerColour);
+bool checkKing(Board::iterator initpos, int diff);
+bool checkQueen(Board::iterator initpos, int diff);
+bool checkKnight(Board::iterator initpos, int diff);
+bool checkBishop(Board::iterator initpos, int diff);
+bool checkRook(Board::iterator initpos, int diff);
+bool checkPawn(Board::iterator initpos, int diff);

@@ -1,12 +1,10 @@
 #pragma once
 class Piece
 {
-private:
+
+	
+public:
 	char name;
 	bool isWhite;
-public:
-	char getName();
-	bool getColor();
-	Piece(char name, bool isWhite);
 };
 

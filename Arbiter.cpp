@@ -1,45 +1,52 @@
 #include "Arbiter.h"
 
-bool checkMove(Board::iterator start, int diff, bool whiteTurn)
+bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool whiteTurn)
 {
-	auto end = start;
+	auto end = initpos;
 	std::advance(end, diff);
-	if (start->getName() == '\0') return false;
-	else if (start->getColor() != whiteTurn ||end->getName() != '\0' &&
-		start->getColor() == end->getColor()) return false;
+	if (initpos->getName() == '\0') return false;
+	else if (initpos->getColor() != whiteTurn || end->getName() != '\0' &&
+		initpos->getColor() == end->getColor()) return false;
 
-	switch (start->getName()) {
+	switch (initpos->getName()) {
 	case 'R':
-		return checkRook(diff);
+		return checkRook(initpos, diff);
 	}
 }
 
-bool checkKing(int diff)
+bool checkKing(Board::iterator start, int diff)
 {
 	return false;
 }
 
-bool checkQueen(int diff)
+bool checkQueen(Board::iterator start, int diff)
 {
 	return false;
 }
 
-bool checkKnight(int diff)
+bool checkKnight(Board::iterator start, int diff)
 {
 	return false;
 }
 
-bool checkBishop(int diff)
+bool checkBishop(Board::iterator start, int diff)
+{
+	
+}
+
+bool checkRook(Board::iterator start, int diff)
 {
 	return false;
 }
 
-bool checkRook(int diff)
+bool checkPawn(Board::iterator start, int diff)
 {
-	return false;
-}
-
-bool checkPawn(int diff)
-{
-	return false;
+	if (diff % 8 != 0) return false;
+	else if (start->isWhite) {
+		if (diff == -8) {
+			advance(start, diff); {
+				if (start->name != '\0') return false;
+			}
+		}
+	}
 }
