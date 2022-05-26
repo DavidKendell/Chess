@@ -48,9 +48,9 @@ bool checkBishop(Board::iterator start, int diff)
 	return false;
 }
 bool checkLine(Board::iterator position){
-    if(position->name !='-'||position->name!='#')
-        return false;
-    return true;
+    if(position->name =='-'||position->name=='#')
+        return true;
+    return false;
 }
 bool checkRook(Board::iterator start ,int diff)
 {bool toBeReturned= false;
