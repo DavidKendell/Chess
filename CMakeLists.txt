@@ -10,7 +10,6 @@ add_executable(Chess
         Arbiter.h
         Board.cpp
         Board.h
-        Piece.cpp
         Piece.h
         Player.cpp
         Player.h

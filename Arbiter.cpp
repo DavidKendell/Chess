@@ -12,9 +12,20 @@ bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool wh
 		initpos->isWhite == end->isWhite) return false;
 
 	switch (initpos->name) {
-	case 'R':
-		return checkRook(initpos, diff);
-	}
+	    case 'R':
+		    return checkRook(initpos, diff);
+        case 'K':
+            return checkKnight(initpos,diff);
+        case 'B':
+            return checkBishop(initpos,diff);
+        case 'Q':
+            return checkQueen(initpos,diff);
+        case 'H':
+            return checkKing(initpos,diff);
+        case 'P':
+            return checkPawn(initpos,diff);
+
+	};
 }
 
 bool checkKing(Board::iterator start, int diff)
