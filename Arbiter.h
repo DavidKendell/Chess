@@ -1,5 +1,6 @@
 #pragma once
 #include "Board.h"
+#include <string>
 
 bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool playerColour);
 bool checkKing(Board::iterator initpos, int diff);

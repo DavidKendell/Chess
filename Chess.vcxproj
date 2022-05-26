@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="Arbiter.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Chess_DLL.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
