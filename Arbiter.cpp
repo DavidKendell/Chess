@@ -1,4 +1,6 @@
 #include "Arbiter.h"
+#include <list>
+#include <iterator>
 
 bool checkMove(Board::iterator start, int diff, bool whiteTurn)
 {
@@ -24,8 +26,19 @@ bool checkQueen(int diff)
 	return false;
 }
 
-bool checkKnight(int diff)
+bool checkKnight(Board::iterator start, int diff)
 {
+		const int moveLeft = 15;
+		const int moveRight = 17;
+
+		if (diff ==  moveLeft || diff == (-moveLeft)
+			|| diff == moveRight || diff == (-moveRight)){
+
+			std::advance(start, diff);
+
+			return true;
+
+	}
 	return false;
 }
 

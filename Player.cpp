@@ -24,6 +24,8 @@ void Player::movePiece()
 	// checkMove(iterator, diff, whiteTurn)
 	//edit board
 
+
+
 	whiteTurn = !whiteTurn;
 
 }
