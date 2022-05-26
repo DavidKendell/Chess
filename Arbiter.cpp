@@ -41,12 +41,12 @@ bool checkLine(Board::iterator position){
 }
 bool checkRook(Board::iterator start ,int diff)
 {bool toBeReturned= false;
-    if (diff<8)
+    if (diff<8&&diff>0)
         for (int i = 0; i < diff; ++i) {
             start++;
             toBeReturned=checkLine(start);
         }
-    if(diff>-8)
+    if(diff>-8&&diff<0)
         for (int i = 0; i > diff; --i) {
             start--;
             toBeReturned =checkLine(start);
@@ -54,13 +54,13 @@ bool checkRook(Board::iterator start ,int diff)
         }
     if (diff%8 ==0)
         if (diff>0)
-            for (int i = 0; i < diff%8; ++i) {
+            for (int i = 0; i < diff/8; ++i) {
                 advance(start,8);
                 toBeReturned=checkLine(start);
 
             }
         if (diff<0)
-            for (int i = 0; i >diff%8 ; ++i) {
+            for (int i = 0; i >diff/8 ; ++i) {
                 advance(start,-8);
                 toBeReturned=checkLine(start);
 
