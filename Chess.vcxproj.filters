@@ -27,7 +27,7 @@
     <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess_DLL.h">
+    <ClInclude Include="Chess_DLL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
