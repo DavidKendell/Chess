@@ -149,7 +149,6 @@
   <ItemGroup>
     <ClCompile Include="Arbiter.cpp" />
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>

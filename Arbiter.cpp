@@ -7,11 +7,11 @@ bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool wh
 {
 	auto end = initpos;
 	std::advance(end, diff);
-	if (initpos->getName() == '\0') return false;
-	else if (initpos->getColor() != whiteTurn || end->getName() != '\0' &&
-		initpos->getColor() == end->getColor()) return false;
+	if (initpos->name == '\0') return false;
+	else if (initpos->isWhite != whiteTurn || end->name != '\0' &&
+		initpos->isWhite == end->isWhite) return false;
 
-	switch (initpos->getName()) {
+	switch (initpos->name) {
 	case 'R':
 		return checkRook(initpos, diff);
 	}
@@ -48,7 +48,7 @@ bool checkBishop(Board::iterator start, int diff)
 	return false;
 }
 bool checkLine(Board::iterator position){
-    if(position->getName() !='-'||position->getName()!='#')
+    if(position->name !='-'||position->name!='#')
         return false;
     return true;
 }
@@ -93,4 +93,5 @@ bool checkPawn(Board::iterator start, int diff)
 			}
 		}
 	}
+	return true;
 }
