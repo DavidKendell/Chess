@@ -1,4 +1,5 @@
 #include "Arbiter.h"
+#include <math.h>
 
 bool checkMove(Board::iterator start, int diff, bool whiteTurn)
 {
@@ -33,12 +34,42 @@ bool checkBishop(int diff)
 {
 	return false;
 }
-
-bool checkRook(int diff)
-{ if (diff ==1||diff==-1||diff==8||diff==-8)
+bool checkLine(Board::iterator position){
+    if(position->getName() !='-'||position->getName()!='#')
+        return false;
     return true;
-	return false;
 }
+bool checkRook(Board::iterator start ,int diff)
+{bool toBeReturned= false;
+    if (diff<8)
+        for (int i = 0; i < diff; ++i) {
+            start++;
+            toBeReturned=checkLine(start);
+        }
+    if(diff>-8)
+        for (int i = 0; i > diff; --i) {
+            start--;
+            toBeReturned =checkLine(start);
+
+        }
+    if (diff%8 ==0)
+        if (diff>0)
+            for (int i = 0; i < diff%8; ++i) {
+                advance(start,8);
+                toBeReturned=checkLine(start);
+
+            }
+        if (diff<0)
+            for (int i = 0; i >diff%8 ; ++i) {
+                advance(start,-8);
+                toBeReturned=checkLine(start);
+
+            }
+
+
+    return toBeReturned;
+}
+
 
 bool checkPawn(int diff)
 {
