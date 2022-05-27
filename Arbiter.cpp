@@ -85,13 +85,5 @@ bool checkRook(Board::iterator start ,int diff)
 
 bool checkPawn(Board::iterator start, int diff)
 {
-	if (diff % 8 != 0) return false;
-	else if (start->isWhite) {
-		if (diff == -8) {
-			advance(start, diff); {
-				if (start->name != '\0') return false;
-			}
-		}
-	}
-	return true;
+    return true;
 }
