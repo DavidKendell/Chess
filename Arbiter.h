@@ -10,3 +10,4 @@ bool checkKnight(Board::iterator initpos, int diff);
 bool checkBishop(Board::iterator initpos, int diff);
 bool checkRook(Board::iterator initpos, int diff);
 bool checkPawn(Board::iterator initpos, int diff);
+bool checkEmpty(Board::iterator);
