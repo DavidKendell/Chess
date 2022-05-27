@@ -84,7 +84,7 @@ bool checkRook(Board::iterator start ,int diff)
 
             }
         if (diff<0)
-            for (int i = 0; i >diff/8 ; ++i) {
+            for (int i = 0; i >diff/8 ; --i) {
                 advance(start,-8);
                 toBeReturned=checkLine(start);
 
@@ -96,5 +96,9 @@ bool checkRook(Board::iterator start ,int diff)
 
 bool checkPawn(Board::iterator start, int diff)
 {
-    return true;
+    auto newPos = start;
+    advance(newPos, diff);
+    bool legalWhiteMove = start->isWhite && (diff == -8 || !checkLine(newPos) && (diff == -9 || diff == -7));
+    bool legalBlackMove = !start->isWhite && (diff == 8 || !checkLine(newPos) && (diff == 9 || diff == 7));
+    return legalBlackMove || legalWhiteMove;
 }
