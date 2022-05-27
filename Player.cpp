@@ -1,6 +1,5 @@
 
 #include "Player.h"
-//#include "Board.h"
 #include <string>
 #include <iostream>
 
@@ -17,7 +16,7 @@ void Player::movePiece()
 	std::string piecePosition;
 	std::string finalPosition;
 	std::cout << (whiteTurn ? "White's turn" : "Black's turn") << std::endl;
-	std::cout << "Move which piece?\n";
+	std::cout << "Choose piece to move\n";
 	std::cin >> piecePosition;
 	std::cout << "Move to where?\n";
 	std::cin >> finalPosition;
@@ -26,19 +25,19 @@ void Player::movePiece()
 	auto boardBegin = board->begin();
 
 	int diff = calculateDiff(piecePosition, finalPosition);//d
-	int pieceOldPos = calculateDiff(piecePosition, "1h");
+	int pieceOldPos = calculateDiff(piecePosition, BOARD_END);
 	int traverseDist;
-	int pieceNewPos = calculateDiff("8a", piecePosition);
+	int pieceNewPos = calculateDiff(BOARD_START, piecePosition);
 
 	bool allowedMove;
 
 	
 	Board::iterator newPiecePos = boardBegin;
-	traverseDist = calculateDiff("8a", finalPosition);
+	traverseDist = calculateDiff(BOARD_START, finalPosition);
 	std::advance(newPiecePos, traverseDist);
 
 	Board::iterator oldPicePos = boardBegin;
-	traverseDist = calculateDiff("8a", piecePosition);
+	traverseDist = calculateDiff(BOARD_START, piecePosition);
 	std::advance(oldPicePos, traverseDist);
 
 	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff, whiteTurn);

@@ -102,7 +102,7 @@ int iterations = abs(diff) / 9;
 			if (i + 1 == iterations && toBeReturned)
 				return true;
             toBeReturned=checkEmpty(piecePosition);
-			//**TODO** uncomment bottom line to stop bishop jump over/skip other pieces
+			//**TODO: uncomment bottom line to stop bishop jump over/skip other pieces
 			//if (!toBeReturned) return false;
         }
     }
@@ -114,7 +114,7 @@ int iterations = abs(diff) / 9;
 				return true;
             std::advance(piecePosition,7*abs(diff)/diff);
             toBeReturned=checkEmpty(piecePosition);
-			//**TODO** uncomment bottom line to stop bishop jump over/skip other pieces
+			//**TODO: uncomment bottom line to stop bishop jump over/skip other pieces
 			//if (!toBeReturned) return false;
         }				
 
@@ -136,7 +136,7 @@ int iterations;
 
                 std::advance(piecePosition,abs(diff)/diff);
                 toBeReturned = checkEmpty(piecePosition);
-				//**TODO** uncomment bottom line to stop rook jump over/skip other pieces
+				//**TODO: uncomment bottom line to stop rook jump over/skip other pieces
 				//if (!toBeReturned) return false;
             }
     }
@@ -152,7 +152,7 @@ int iterations;
 
 			advance(piecePosition, 8 * abs(diff) / diff);
 			toBeReturned = checkEmpty(piecePosition);
-			//**TODO** uncomment bottom line to stop rook jump over/skip other pieces
+			//**TODO: uncomment bottom line to stop rook jump over/skip other pieces
 			//if (!toBeReturned) return false;
 		}
 	}

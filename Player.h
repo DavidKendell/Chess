@@ -8,7 +8,7 @@ private:
 public:
 	Player(Board *board);
 	void movePiece();
-	int calculateMove(std::string piecePosition, std::string finalPosition);
+	//int calculateMove(std::string piecePosition, std::string finalPosition);
 	int calculateDiff(std::string piecePosition, std::string finalPosition);
 };
 
