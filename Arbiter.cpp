@@ -1,6 +1,5 @@
 #include "Arbiter.h"
 #include <list>
-
 #include <cmath>
 
 bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool whiteTurn)
@@ -66,7 +65,7 @@ bool checkBishop(Board::iterator piecePosition, int diff)
             checkEmpty(piecePosition);
         }
     }
-    if(abs(diff)==7){
+    if(abs(diff)%7==0){
         for (int i = 0; i < abs(diff)/7; ++i) {
             std::advance(piecePosition,7*abs(diff)/diff);
             checkEmpty(piecePosition);
