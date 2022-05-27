@@ -36,7 +36,7 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	case 'P':
 		return checkKing(newPiecePos, diff);
 	case 'p':
-		return checkPawn(newPiecePos, diff);
+		return checkPawn(newPiecePos, diff, traverseDist);
 	default: return false;
 	};
 }
@@ -108,20 +108,19 @@ bool checkRook(Board::iterator piecePosition ,int diff)
     return toBeReturned;
 }
 
-bool checkPawn(Board::iterator piecePosition, int diff)
+bool checkPawn(Board::iterator piecePosition, int diff, int traverseDist)
 {
-	if (diff % 8 != 0) return false;
-	else if (piecePosition->isWhite) {
-		if (diff == -8) {
-			advance(piecePosition, diff); {
-				if (!checkEmpty(piecePosition)) return false;
-			}
-		}
-	}
-	return true;
+    auto newPos = piecePosition;
+    advance(newPos, diff);
+    bool legalWhiteMove = piecePosition->isWhite && (diff == -8 ||
+		!checkEmpty(newPos) && (diff == -9 || diff == -7) || 48 <= traverseDist && traverseDist <= 55 && diff == -16);
+    bool legalBlackMove = !piecePosition->isWhite && (diff == 8 ||
+		!checkEmpty(newPos) && (diff == 9 || diff == 7) || 8 <= traverseDist && traverseDist <= 15 && diff == 16);
+    return legalBlackMove || legalWhiteMove;
 }
-bool checkEmpty(Board::iterator position){
-    if(position->name =='-'||position->name=='#')
-        return true;
-    return false;
+
+bool checkEmpty(Board::iterator position) {
+	if (position->name == '-' || position->name == '#')
+		return true;
+	return false;
 }
