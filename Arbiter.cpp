@@ -128,3 +128,19 @@ bool checkEmpty(Board::iterator position){
         return true;
     return false;
 }
+
+bool checkCheck(Board::iterator King)
+
+{   int directions[] {1,-1,8,-8};
+    for (int i = 0; i < sizeof directions / sizeof *directions; ++i) {
+
+    auto currentCheckLocation=King;
+    for (int j = 0; j < 8; ++j) {
+        std::advance(currentCheckLocation,directions[i]);
+        if(!checkEmpty(currentCheckLocation))
+            break;
+    }
+
+    if (reinterpret_cast<const char *>(currentCheckLocation->name) == "Queen" || reinterpret_cast<const char *>(currentCheckLocation->name) == "Rook")
+        return true;
+}}
