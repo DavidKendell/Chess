@@ -103,23 +103,55 @@ bool checkBishop(Board::iterator piecePosition, int diff)
 
 bool checkRook(Board::iterator piecePosition ,int diff)
 {bool toBeReturned= false;
+int iterations;
+
+	//if (abs(diff) < 8) {
+	//	toBeReturned = true;
+	//	for (int i = 0; i < abs(diff); ++i) {
+	//		std::advance(piecePosition, abs(diff) / diff);
+	//		toBeReturned = checkEmpty(piecePosition);
+	//	}
+	//}
+
 
     if (abs(diff)<8) {
         toBeReturned=true;
-            for (int i = 0; i < abs(diff); ++i) {
+		iterations = abs(diff);
+            for (int i = 0; i < iterations; ++i) {
+				if (i + 1 == iterations && toBeReturned)
+					return true;
+
                 std::advance(piecePosition,abs(diff)/diff);
                 toBeReturned = checkEmpty(piecePosition);
+				//**TODO** uncomment bottom line to stop rook jump over/skip other pieces
+				//if (!toBeReturned) return false;
             }
     }
 
 
-    if (diff%8 ==0) {
+   /* if (diff%8 ==0) {
         toBeReturned=true;
             for (int i = 0; i < abs(diff) / 8; ++i) {
                 advance(piecePosition, 8*abs(diff)/diff);
                 toBeReturned = checkEmpty(piecePosition);
             }
-    }
+    }*/
+
+
+	if (diff % 8 == 0) {
+		toBeReturned = true;
+		iterations = abs(diff) / Board::DIM;
+
+		for (int i = 0; i < iterations; ++i) {
+			if (i + 1 == iterations && toBeReturned) 
+				return true;
+
+			advance(piecePosition, 8 * abs(diff) / diff);
+			toBeReturned = checkEmpty(piecePosition);
+			//**TODO** uncomment bottom line to stop rook jump over/skip other pieces
+			//if (!toBeReturned) return false;
+		}
+	}
     return toBeReturned;
 
 	/*tests
