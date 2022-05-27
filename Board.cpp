@@ -12,24 +12,22 @@ Board::Board()
 
 		if (i < DIM) {
 			p.name = names[i];
-			p.isWhite = true;
-
 		}
 		else if (i < 2 * DIM) {
 			p.name = 'P';
-			p.isWhite = true;
 		}
 		else if (i > 2 * DIM - 1 && i < BOARD_SIZE - 2 * DIM) {
-			p.isWhite = isWhite(i + 1);
-			p.name = (p.isWhite) ? '-' : '#';
+			//p.isWhite = isWhite(i + 1);
+			
+			p.name = (isWhite(i+1)) ? '-' : '#';
 		}
 		else if (i > BOARD_SIZE - 2 * DIM - 1 && i < BOARD_SIZE - DIM) {
 			p.name = 'p';
-
+			p.isWhite = true;
 		}
 		else {
 			p.name = tolower(names[i % DIM]);
-
+			p.isWhite = true;
 		}
 		Board::push_back(p);
 
