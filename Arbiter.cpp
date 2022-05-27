@@ -6,12 +6,9 @@
 bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
-	//Board::iterator startPos = newPiecePos;
-	
-	//std::advance(startPos, abs(diff));
 	//if (newPiecePos->name == '\0') return false;
-	//else if (newPiecePos->isWhite != whiteTurn || end->name != '\0' &&
-	 //checkLine(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) return false;
+	//if (newPiecePos->isWhite != whiteTurn) return false;
+	//else if(!checkEmpty(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) return false;
 	//else if (finalPos->isWhite != whiteTurn //|| end->name != '\0' &&
 		/*initpos->isWhite == end->isWhite) return false;*/
 
@@ -60,14 +57,27 @@ bool checkQueen(Board::iterator piecePosition, int diff)
 
 bool checkKnight(Board::iterator newPiecePos, int diff)
 {
-	const int moveLeft = 15;
-	const int moveRight = 17;
+	const int moveLeftUp = 15;
+	const int moveRightUp = 17;
+	const int moveLeftDown = 6;
+	const int moveRightDown = 10;
 
-	if (diff == moveLeft || diff == (-moveLeft)
-		|| diff == moveRight || diff == (-moveRight)) {
-		return true;
+	switch (abs(diff)) {
+	case moveLeftUp:return true;
+	case moveLeftDown:return true;
+	case moveRightUp:return true;
+	case moveRightDown:return true;
+	default:return false;
 
 	}
+
+	/*Tested patterns
+	1b 3c
+	3c 4e
+	4e 5g
+	5g 6e
+	6e 4f*/
+
 	return false;
 }
 
