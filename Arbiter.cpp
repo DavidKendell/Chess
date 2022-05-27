@@ -39,7 +39,7 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	case 'P':
 		return checkKing(newPiecePos, diff);
 	case 'p':
-		return checkPawn(newPiecePos, diff);
+		return checkPawn(newPiecePos, diff, traverseDist);
 	default: return false;
 	};
 }
@@ -111,12 +111,14 @@ bool checkRook(Board::iterator piecePosition ,int diff)
     return toBeReturned;
 }
 
-bool checkPawn(Board::iterator piecePosition, int diff)
+bool checkPawn(Board::iterator piecePosition, int diff, int traverseDist)
 {
     auto newPos = piecePosition;
     advance(newPos, diff);
-    bool legalWhiteMove = piecePosition->isWhite && (diff == -8 || !checkLine(newPos) && (diff == -9 || diff == -7));
-    bool legalBlackMove = !piecePosition->isWhite && (diff == 8 || !checkLine(newPos) && (diff == 9 || diff == 7));
+    bool legalWhiteMove = piecePosition->isWhite && (diff == -8 ||
+		!checkEmpty(newPos) && (diff == -9 || diff == -7) || 48 <= traverseDist && traverseDist <= 55 && diff == -16);
+    bool legalBlackMove = !piecePosition->isWhite && (diff == 8 ||
+		!checkEmpty(newPos) && (diff == 9 || diff == 7) || 8 <= traverseDist && traverseDist <= 15 && diff == 16);
     return legalBlackMove || legalWhiteMove;
 }
 
