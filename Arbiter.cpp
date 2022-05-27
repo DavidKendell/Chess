@@ -172,7 +172,7 @@ bool checkCheck(Board::iterator King)
                 return true;
 
         } else
-            if (checkEmpty(currentCheckLocation)==pieces[4]);
+            if (checkEmpty(currentCheckLocation)==pieces[4])
+                return true;
     }
     }
-}
