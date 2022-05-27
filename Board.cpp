@@ -1,6 +1,7 @@
 #include "Board.h"
 #include <iostream>
 
+
 Board::Board()
 {
 	char names[]{ 'R','K','B','Q','H','B','K','R' };
@@ -12,6 +13,7 @@ Board::Board()
 		if (i < DIM) {
 			p.name = names[i];
 			p.isWhite = true;
+
 		}
 		else if (i < 2 * DIM) {
 			p.name = 'P';
@@ -23,9 +25,11 @@ Board::Board()
 		}
 		else if (i > BOARD_SIZE - 2 * DIM - 1 && i < BOARD_SIZE - DIM) {
 			p.name = 'p';
+
 		}
 		else {
 			p.name = tolower(names[i % DIM]);
+
 		}
 		Board::push_back(p);
 
@@ -34,17 +38,17 @@ Board::Board()
 
 void Board::print()
 {
-	int counter = 1;
-	int negCount = 8;
+	int newLineCounter = 1;
+	int rowNum = 8;
 
 	std::cout << "|";
 	for (auto it = Board::begin(); it != Board::end(); ++it) {
 		std::cout << " " << it->name << " ";
-		if (counter % DIM == 0) {
-			std::cout << "|" << negCount << "\n|";
-			negCount--;
+		if (newLineCounter % DIM == 0) {
+			std::cout << "|" << rowNum << "\n|";
+			rowNum--;
 		}
-		counter++;
+		newLineCounter++;
 
 	}
 	std::cout << "------------------------" << std::endl;

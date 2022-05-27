@@ -1,10 +1,12 @@
+
 #include "Player.h"
+//#include "Board.h"
 #include <string>
 #include <iostream>
 
 
 
-Player::Player(Board *board)
+Player::Player(Board* board)
 {
 	this->board = board;
 }
@@ -19,28 +21,42 @@ void Player::movePiece()
 	std::cin >> piecePosition;
 	std::cout << "Move to where?\n";
 	std::cin >> finalPosition;
-	int initpos = calculateMove("8a", piecePosition);
-	int finalpos = calculateMove("8a", finalPosition);
-	int diff = finalpos - initpos;
-	 
-	auto start = board->begin();
-	//advance(x, );
-	//checkMove(board->begin(), piecePosition, finalPosition, whiteTurn);
 
 
+	auto boardBegin = board->begin();
+
+	int diff = calculateDiff(piecePosition, finalPosition);//d
+	int pieceOldPos = calculateDiff(piecePosition, "1h");
+	int traverseDist;
+	int pieceNewPos = calculateDiff("8a", piecePosition);
+
+	bool allowedMove;
 
 	whiteTurn = !whiteTurn;
+	Board::iterator newPiecePos = boardBegin;
+	traverseDist = calculateDiff("8a", finalPosition);
+	std::advance(newPiecePos, traverseDist);
 
+	Board::iterator oldPicePos = boardBegin;
+	traverseDist = calculateDiff("8a", piecePosition);
+	std::advance(oldPicePos, traverseDist);
+
+	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff, whiteTurn);
+	if (allowedMove) {
+		newPiecePos->name = oldPicePos->name;
+		oldPicePos->name = (board->isWhite(traverseDist)) ? '-' : '#';
+	}
 }
 
-int Player::calculateMove(std::string piecePosition,std::string finalPosition) {
-	int startingColumn = 8 - piecePosition[0];
-	int finalColumn = 8 - finalPosition[0];
-	int columnDifference = finalColumn - startingColumn;
 
-	int startingRow = piecePosition[1] - '0';
-	int finalRow = finalPosition[1] - 48;
-	int rowMultiplier = finalRow - startingRow;
+int Player::calculateDiff(std::string piecePosition, std::string finalPosition) {
+	int startingColumn = piecePosition[0] - 48;
+	int finalColumn = finalPosition[0] - 48;
+	int startingRow = piecePosition[1];
+	int finalRow = finalPosition[1];
+	int resultColumn = (startingColumn - finalColumn) * Board::DIM;
+	int resultRow = startingRow - finalRow;
+	int newPos = resultColumn - resultRow;
 
-	return 8 * rowMultiplier + columnDifference;
+	return newPos;
 }
