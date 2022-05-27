@@ -84,19 +84,21 @@ bool checkKnight(Board::iterator newPiecePos, int diff)
 bool checkBishop(Board::iterator piecePosition, int diff)
 { bool toBeReturned=true;
     if (abs(diff)%9==0){
+        toBeReturned=true;
         for (int i = 0; i < abs(diff) / 9; ++i) {
             std::advance(piecePosition,9* abs(diff)/diff);
-            checkEmpty(piecePosition);
+            toBeReturned=checkEmpty(piecePosition);
         }
     }
     if(abs(diff)%7==0){
+        toBeReturned=true;
         for (int i = 0; i < abs(diff)/7; ++i) {
             std::advance(piecePosition,7*abs(diff)/diff);
-            checkEmpty(piecePosition);
+            toBeReturned=checkEmpty(piecePosition);
         }
 
     }
-	return false;
+	return toBeReturned;
 }
 
 bool checkRook(Board::iterator piecePosition ,int diff)
