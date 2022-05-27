@@ -30,11 +30,15 @@ bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool wh
 
 bool checkKing(Board::iterator start, int diff)
 {
+    if (abs(diff)<=9&& checkQueen(start,diff))
 	return false;
 }
 
 bool checkQueen(Board::iterator start, int diff)
-{
+{   if (checkRook(start,diff)|| checkBishop(start,diff)){
+    return true;
+
+}
 	return false;
 }
 
@@ -76,19 +80,20 @@ bool checkRook(Board::iterator start ,int diff)
             toBeReturned =checkLine(start);
 
         }
-    if (diff%8 ==0)
-        if (diff>0)
-            for (int i = 0; i < diff/8; ++i) {
-                advance(start,8);
-                toBeReturned=checkLine(start);
+    if (diff%8 ==0) {
+        if (diff > 0)
+            for (int i = 0; i < diff / 8; ++i) {
+                advance(start, 8);
+                toBeReturned = checkLine(start);
 
             }
-        if (diff<0)
-            for (int i = 0; i >diff/8 ; --i) {
-                advance(start,-8);
-                toBeReturned=checkLine(start);
+        if (diff < 0)
+            for (int i = 0; i > diff / 8; --i) {
+                advance(start, -8);
+                toBeReturned = checkLine(start);
 
             }
+    }
 
 
     return toBeReturned;
