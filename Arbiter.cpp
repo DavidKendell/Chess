@@ -7,19 +7,19 @@
 bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
-	//if (newPiecePos->name == '\0') return false;
+	
+	/* ***TODO: Uncomment this to stop same colour pieces 
+		capturing each other and to stop same colour move twice
 
-	//if (oldPicePos->isWhite != whiteTurn) {
-	//	std::cout << "\nIt is not your turn" << std::endl;
-	//	return false;
-	//}
-	//else if (!checkEmpty(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) {
-	//	std::cout << "\nCan't capture same colour piece." << std::endl;
-	//	return false;
-	//}
-
-	//else if (finalPos->isWhite != whiteTurn //|| end->name != '\0' &&
-		/*initpos->isWhite == end->isWhite) return false;*/
+	if (oldPicePos->isWhite != whiteTurn) {
+		std::cout << "\nIt is not your turn" << std::endl;
+		return false;
+	}
+	else if (!checkEmpty(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) {
+		std::cout << "\nCan't capture same colour piece." << std::endl;
+		return false;
+	}
+	*/
 
 	switch (oldPicePos->name) {
 	case 'R':
@@ -49,13 +49,15 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	default: return false;
 	};
 }
-
+//TODO: to stop king jumping over pieces stop rook first (check its todo)
 bool checkKing(Board::iterator piecePosition, int diff)
 {
-    if (abs(diff)<=9&& checkQueen(piecePosition,diff))
+	if (abs(diff) <= 9 && checkQueen(piecePosition, diff))
+		return true;
+
 	return false;
 }
-
+//TODO: to stop queen jumping over pieces stop rook and bishop first first (check its todo)
 bool checkQueen(Board::iterator piecePosition, int diff)
 {   if (checkRook(piecePosition,diff)|| checkBishop(piecePosition,diff)){
     return true;
@@ -91,20 +93,30 @@ bool checkKnight(Board::iterator newPiecePos, int diff)
 }
 
 bool checkBishop(Board::iterator piecePosition, int diff)
-{ bool toBeReturned=true;
+{bool toBeReturned=false;
+int iterations = abs(diff) / 9;
     if (abs(diff)%9==0){
         toBeReturned=true;
-        for (int i = 0; i < abs(diff) / 9; ++i) {
+        for (int i = 0; i < iterations; ++i) {
             std::advance(piecePosition,9* abs(diff)/diff);
+			if (i + 1 == iterations && toBeReturned)
+				return true;
             toBeReturned=checkEmpty(piecePosition);
+			//**TODO** uncomment bottom line to stop bishop jump over/skip other pieces
+			//if (!toBeReturned) return false;
         }
     }
     if(abs(diff)%7==0){
         toBeReturned=true;
-        for (int i = 0; i < abs(diff)/7; ++i) {
+		iterations = abs(diff) / 7;
+        for (int i = 0; i < iterations; ++i) {
+			if (i + 1 == iterations && toBeReturned)
+				return true;
             std::advance(piecePosition,7*abs(diff)/diff);
             toBeReturned=checkEmpty(piecePosition);
-        }
+			//**TODO** uncomment bottom line to stop bishop jump over/skip other pieces
+			//if (!toBeReturned) return false;
+        }				
 
     }
 	return toBeReturned;
