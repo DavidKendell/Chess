@@ -3,6 +3,6 @@ class Piece
 {
 public:
 	char name;
-	bool isWhite;
+	bool isWhite = false;
 };
 

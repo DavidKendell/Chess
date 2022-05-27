@@ -171,8 +171,8 @@ bool checkPawn(Board::iterator piecePosition, int diff, int traverseDist)
 	bool black2step = 8 <= traverseDist && traverseDist <= 15 && diff == 16;
 	bool whiteTake = !checkEmpty(newPos) && (diff == -9 || diff == -7);
 	bool blackTake = !checkEmpty(newPos) && (diff == 9 || diff == 7);
-	bool legalWhite = piecePosition->isWhite && (white1step || white2step || whiteTake);
-	bool legalBlack = !piecePosition->isWhite && (black1step || black2step || blackTake);
+	bool legalWhite = piecePosition->isWhite && (white1step && checkEmpty(newPos) || white2step && checkEmpty(newPos) || whiteTake);
+	bool legalBlack = !piecePosition->isWhite && (black1step && checkEmpty(newPos) || black2step && checkEmpty(newPos) || blackTake);
     return legalBlack || legalWhite;
 }
 
