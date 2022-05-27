@@ -6,12 +6,9 @@
 bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
-	//Board::iterator startPos = newPiecePos;
-	
-	//std::advance(startPos, abs(diff));
 	//if (newPiecePos->name == '\0') return false;
-	//else if (newPiecePos->isWhite != whiteTurn || end->name != '\0' &&
-	 //checkLine(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) return false;
+	//if (newPiecePos->isWhite != whiteTurn) return false;
+	//else if(!checkEmpty(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) return false;
 	//else if (finalPos->isWhite != whiteTurn //|| end->name != '\0' &&
 		/*initpos->isWhite == end->isWhite) return false;*/
 
