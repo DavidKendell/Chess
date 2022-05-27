@@ -177,4 +177,5 @@ bool checkCheck(Board::iterator King)
             if (checkEmpty(currentCheckLocation)==pieces[4])
                 return true;
     }
+    return false;
     }
