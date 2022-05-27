@@ -46,10 +46,10 @@ void Player::movePiece()
 		oldPicePos->name = (board->isWhite(traverseDist)) ? '#' : '-';
 	}
 
-	std::cout << "------------"<< std::endl;
-	std::cout << "is allowed move = " << allowedMove << std::endl;
-	std::cout << "diff is = " << diff << std::endl;
-	std::cout << "------------" << std::endl;
+	//std::cout << "------------"<< std::endl;
+	//std::cout << "is allowed move = " << allowedMove << std::endl;
+	//std::cout << "diff is = " << diff << std::endl;
+	//std::cout << "------------" << std::endl;
 }
 
 

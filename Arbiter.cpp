@@ -14,29 +14,29 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 
 	switch (oldPicePos->name) {
 	case 'R':
-		return checkRook(newPiecePos, diff);
+		return checkRook(oldPicePos, diff);
 	case 'r':
-		return checkRook(newPiecePos, diff);
+		return checkRook(oldPicePos, diff);
 	case 'K':
-		return checkKnight(newPiecePos, diff);
+		return checkKnight(oldPicePos, diff);
 	case 'k':
-		return checkKnight(newPiecePos, diff);
+		return checkKnight(oldPicePos, diff);
 	case 'B':
-		return checkKnight(newPiecePos, diff);
+		return checkKnight(oldPicePos, diff);
 	case 'b':
-		return checkBishop(newPiecePos, diff);
+		return checkBishop(oldPicePos, diff);
 	case 'Q':
-		return checkBishop(newPiecePos, diff);
+		return checkBishop(oldPicePos, diff);
 	case 'q':
-		return checkQueen(newPiecePos, diff);
+		return checkQueen(oldPicePos, diff);
 	case 'H':
-		return checkQueen(newPiecePos, diff);
+		return checkQueen(oldPicePos, diff);
 	case 'h':
-		return checkKing(newPiecePos, diff);
+		return checkKing(oldPicePos, diff);
 	case 'P':
-		return checkKing(newPiecePos, diff);
+		return checkKing(oldPicePos, diff);
 	case 'p':
-		return checkPawn(newPiecePos, diff, traverseDist);
+		return checkPawn(oldPicePos, diff, traverseDist);
 	default: return false;
 	};
 }
