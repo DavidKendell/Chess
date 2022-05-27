@@ -80,19 +80,20 @@ bool checkRook(Board::iterator start ,int diff)
             toBeReturned =checkLine(start);
 
         }
-    if (diff%8 ==0)
-        if (diff>0)
-            for (int i = 0; i < diff/8; ++i) {
-                advance(start,8);
-                toBeReturned=checkLine(start);
+    if (diff%8 ==0) {
+        if (diff > 0)
+            for (int i = 0; i < diff / 8; ++i) {
+                advance(start, 8);
+                toBeReturned = checkLine(start);
 
             }
-        if (diff<0)
-            for (int i = 0; i >diff/8 ; ++i) {
-                advance(start,-8);
-                toBeReturned=checkLine(start);
+        if (diff < 0)
+            for (int i = 0; i > diff / 8; --i) {
+                advance(start, -8);
+                toBeReturned = checkLine(start);
 
             }
+    }
 
 
     return toBeReturned;
