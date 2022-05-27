@@ -22,19 +22,19 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	case 'k':
 		return checkKnight(oldPicePos, diff);
 	case 'B':
-		return checkKnight(oldPicePos, diff);
+		return checkBishop(oldPicePos, diff);
 	case 'b':
 		return checkBishop(oldPicePos, diff);
 	case 'Q':
-		return checkBishop(oldPicePos, diff);
+		return checkQueen(oldPicePos, diff);
 	case 'q':
 		return checkQueen(oldPicePos, diff);
 	case 'H':
-		return checkQueen(oldPicePos, diff);
+		return checkKing(oldPicePos, diff);
 	case 'h':
 		return checkKing(oldPicePos, diff);
 	case 'P':
-		return checkKing(oldPicePos, diff);
+		return checkPawn(oldPicePos, diff,traverseDist);
 	case 'p':
 		return checkPawn(oldPicePos, diff, traverseDist);
 	default: return false;
