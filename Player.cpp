@@ -16,6 +16,7 @@ void Player::movePiece()
 {
 	std::string piecePosition;
 	std::string finalPosition;
+	std::cout << (whiteTurn ? "White's turn" : "Black's turn") << std::endl;
 	std::cout << "Move which piece?\n";
 	std::cin >> piecePosition;
 	std::cout << "Move to where?\n";
@@ -31,7 +32,7 @@ void Player::movePiece()
 
 	bool allowedMove;
 
-	whiteTurn = !whiteTurn;
+	
 	Board::iterator newPiecePos = boardBegin;
 	traverseDist = calculateDiff("8a", finalPosition);
 	std::advance(newPiecePos, traverseDist);
@@ -43,13 +44,15 @@ void Player::movePiece()
 	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff, whiteTurn);
 	if (allowedMove) {
 		newPiecePos->name = oldPicePos->name;
-		oldPicePos->name = (board->isWhite(traverseDist)) ? '#' : '-';
+		newPiecePos->isWhite = oldPicePos->isWhite;
+		oldPicePos->name = (board->isWhite(traverseDist)) ? '-' : '#';
+		whiteTurn = !whiteTurn;
 	}
 
-	std::cout << "------------"<< std::endl;
-	std::cout << "is allowed move = " << allowedMove << std::endl;
-	std::cout << "diff is = " << diff << std::endl;
-	std::cout << "------------" << std::endl;
+	//std::cout << "------------"<< std::endl;
+	//std::cout << "is allowed move = " << allowedMove << std::endl;
+	//std::cout << "diff is = " << diff << std::endl;
+	//std::cout << "------------" << std::endl;
 }
 
 
