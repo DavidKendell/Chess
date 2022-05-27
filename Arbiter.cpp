@@ -17,29 +17,29 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 
 	switch (oldPicePos->name) {
 	case 'R':
-		return checkRook(newPiecePos, diff);
+		return checkRook(oldPicePos, diff);
 	case 'r':
-		return checkRook(newPiecePos, diff);
+		return checkRook(oldPicePos, diff);
 	case 'K':
-		return checkKnight(newPiecePos, diff);
+		return checkKnight(oldPicePos, diff);
 	case 'k':
-		return checkKnight(newPiecePos, diff);
+		return checkKnight(oldPicePos, diff);
 	case 'B':
-		return checkKnight(newPiecePos, diff);
+		return checkKnight(oldPicePos, diff);
 	case 'b':
-		return checkBishop(newPiecePos, diff);
+		return checkBishop(oldPicePos, diff);
 	case 'Q':
-		return checkBishop(newPiecePos, diff);
+		return checkBishop(oldPicePos, diff);
 	case 'q':
-		return checkQueen(newPiecePos, diff);
+		return checkQueen(oldPicePos, diff);
 	case 'H':
-		return checkQueen(newPiecePos, diff);
+		return checkQueen(oldPicePos, diff);
 	case 'h':
-		return checkKing(newPiecePos, diff);
+		return checkKing(oldPicePos, diff);
 	case 'P':
-		return checkKing(newPiecePos, diff);
+		return checkKing(oldPicePos, diff);
 	case 'p':
-		return checkPawn(newPiecePos, diff, traverseDist);
+		return checkPawn(oldPicePos, diff, traverseDist);
 	default: return false;
 	};
 }
@@ -115,11 +115,15 @@ bool checkPawn(Board::iterator piecePosition, int diff, int traverseDist)
 {
     auto newPos = piecePosition;
     advance(newPos, diff);
-    bool legalWhiteMove = piecePosition->isWhite && (diff == -8 ||
-		!checkEmpty(newPos) && (diff == -9 || diff == -7) || 48 <= traverseDist && traverseDist <= 55 && diff == -16);
-    bool legalBlackMove = !piecePosition->isWhite && (diff == 8 ||
-		!checkEmpty(newPos) && (diff == 9 || diff == 7) || 8 <= traverseDist && traverseDist <= 15 && diff == 16);
-    return legalBlackMove || legalWhiteMove;
+	bool white1step = diff == -8;
+	bool white2step = diff == -16 && 48 <= traverseDist && traverseDist <= 55;
+	bool black1step = diff == 8;
+	bool black2step = 8 <= traverseDist && traverseDist <= 15 && diff == 16;
+	bool whiteTake = !checkEmpty(newPos) && (diff == -9 || diff == -7);
+	bool blackTake = !checkEmpty(newPos) && (diff == 9 || diff == 7);
+	bool legalWhite = piecePosition->isWhite && (white1step || white2step || whiteTake);
+	bool legalBlack = !piecePosition->isWhite && (black1step || black2step || blackTake);
+    return legalBlack || legalWhite;
 }
 
 bool checkEmpty(Board::iterator position) {
