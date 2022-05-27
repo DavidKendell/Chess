@@ -1,3 +1,4 @@
+
 #include "Player.h"
 //#include "Board.h"
 #include <string>
@@ -5,7 +6,7 @@
 
 
 
-Player::Player(Board *board)
+Player::Player(Board* board)
 {
 	this->board = board;
 }
@@ -20,37 +21,31 @@ void Player::movePiece()
 	std::cin >> piecePosition;
 	std::cout << "Move to where?\n";
 	std::cin >> finalPosition;
-	//int initpos = calculateMove("8a", piecePosition);
-	//int finalpos = calculateMove("8a", finalPosition);
-	//int diff = finalpos - initpos;
-	 
+
+
 	auto boardBegin = board->begin();
 
 	int diff = calculateDiff(piecePosition, finalPosition);//d
 	int pieceOldPos = calculateDiff(piecePosition, "1h");
 	int traverseDist;
 	int pieceNewPos = calculateDiff("8a", piecePosition);
-	if (pieceNewPos < pieceOldPos) {
-		traverseDist = calculateDiff("8a", piecePosition);
-	}
-	else traverseDist = calculateDiff("8a", finalPosition);
-
 
 	bool allowedMove;
 
 	whiteTurn = !whiteTurn;
 	Board::iterator newPiecePos = boardBegin;
+	traverseDist = calculateDiff("8a", finalPosition);
 	std::advance(newPiecePos, traverseDist);
 
-	Board::iterator oldPicePos = newPiecePos;
-	std::advance(oldPicePos, -(diff));
+	Board::iterator oldPicePos = boardBegin;
+	traverseDist = calculateDiff("8a", piecePosition);
+	std::advance(oldPicePos, traverseDist);
 
-	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff , whiteTurn);
+	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff, whiteTurn);
 	if (allowedMove) {
 		newPiecePos->name = oldPicePos->name;
 		oldPicePos->name = (board->isWhite(traverseDist)) ? '-' : '#';
 	}
-
 }
 
 
