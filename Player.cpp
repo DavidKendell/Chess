@@ -12,7 +12,6 @@ Player::Player(Board* board)
 }
 
 
-
 void Player::movePiece()
 {
 	std::string piecePosition;
@@ -44,8 +43,13 @@ void Player::movePiece()
 	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff, whiteTurn);
 	if (allowedMove) {
 		newPiecePos->name = oldPicePos->name;
-		oldPicePos->name = (board->isWhite(traverseDist)) ? '-' : '#';
+		oldPicePos->name = (board->isWhite(traverseDist)) ? '#' : '-';
 	}
+
+	std::cout << "------------"<< std::endl;
+	std::cout << "is allowed move = " << allowedMove << std::endl;
+	std::cout << "diff is = " << diff << std::endl;
+	std::cout << "------------" << std::endl;
 }
 
 
