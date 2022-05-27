@@ -30,11 +30,15 @@ bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool wh
 
 bool checkKing(Board::iterator start, int diff)
 {
+    if (abs(diff)<=9&& checkQueen(start,diff))
 	return false;
 }
 
 bool checkQueen(Board::iterator start, int diff)
-{
+{   if (checkRook(start,diff)|| checkBishop(start,diff)){
+    return true;
+
+}
 	return false;
 }
 
