@@ -1,14 +1,23 @@
 #include "Arbiter.h"
 #include <list>
 #include <cmath>
+#include <iostream>
 
 
 bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
 	//if (newPiecePos->name == '\0') return false;
-	//if (newPiecePos->isWhite != whiteTurn) return false;
-	//else if(!checkEmpty(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) return false;
+
+	//if (oldPicePos->isWhite != whiteTurn) {
+	//	std::cout << "\nIt is not your turn" << std::endl;
+	//	return false;
+	//}
+	//else if (!checkEmpty(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) {
+	//	std::cout << "\nCan't capture same colour piece." << std::endl;
+	//	return false;
+	//}
+
 	//else if (finalPos->isWhite != whiteTurn //|| end->name != '\0' &&
 		/*initpos->isWhite == end->isWhite) return false;*/
 
@@ -105,14 +114,6 @@ bool checkRook(Board::iterator piecePosition ,int diff)
 {bool toBeReturned= false;
 int iterations;
 
-	//if (abs(diff) < 8) {
-	//	toBeReturned = true;
-	//	for (int i = 0; i < abs(diff); ++i) {
-	//		std::advance(piecePosition, abs(diff) / diff);
-	//		toBeReturned = checkEmpty(piecePosition);
-	//	}
-	//}
-
 
     if (abs(diff)<8) {
         toBeReturned=true;
@@ -127,15 +128,6 @@ int iterations;
 				//if (!toBeReturned) return false;
             }
     }
-
-
-   /* if (diff%8 ==0) {
-        toBeReturned=true;
-            for (int i = 0; i < abs(diff) / 8; ++i) {
-                advance(piecePosition, 8*abs(diff)/diff);
-                toBeReturned = checkEmpty(piecePosition);
-            }
-    }*/
 
 
 	if (diff % 8 == 0) {

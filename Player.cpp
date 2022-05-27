@@ -45,7 +45,7 @@ void Player::movePiece()
 	if (allowedMove) {
 		newPiecePos->name = oldPicePos->name;
 		newPiecePos->isWhite = oldPicePos->isWhite;
-		oldPicePos->name = (board->isWhite(traverseDist)) ? '-' : '#';
+		oldPicePos->name = (board->isWhite(traverseDist+1)) ? '-' : '#';
 		whiteTurn = !whiteTurn;
 	}
 
