@@ -119,6 +119,12 @@ bool checkRook(Board::iterator piecePosition ,int diff)
             }
     }
     return toBeReturned;
+
+	/*tests
+	  1a 3a
+	  3a 3d
+	  3d 3a
+	*/
 }
 
 bool checkPawn(Board::iterator piecePosition, int diff, int traverseDist)

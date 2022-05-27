@@ -44,6 +44,7 @@ void Player::movePiece()
 	if (allowedMove) {
 		newPiecePos->name = oldPicePos->name;
 		oldPicePos->name = (board->isWhite(traverseDist)) ? '#' : '-';
+
 	}
 
 	//std::cout << "------------"<< std::endl;
