@@ -1,7 +1,7 @@
 #include "Arbiter.h"
 #include <list>
-#include <iterator>
-#include <math.h>
+
+#include <cmath>
 
 bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool whiteTurn)
 {
@@ -59,7 +59,7 @@ bool checkKnight(Board::iterator piecePosition, int diff)
 }
 
 bool checkBishop(Board::iterator piecePosition, int diff)
-{
+{ bool toBeReturned=true;
     if (abs(diff)%9==0){
         for (int i = 0; i < abs(diff) / 9; ++i) {
             std::advance(piecePosition,9* abs(diff)/diff);
@@ -78,33 +78,23 @@ bool checkBishop(Board::iterator piecePosition, int diff)
 
 bool checkRook(Board::iterator piecePosition ,int diff)
 {bool toBeReturned= false;
-    if (diff<8&&diff>0)
-        for (int i = 0; i < diff; ++i) {
-            piecePosition++;
-            toBeReturned=checkEmpty(piecePosition);
-        }
-    if(diff> (-8)&&diff<0)
-        for (int i = 0; i > diff; --i) {
-            piecePosition--;
-            toBeReturned =checkEmpty(piecePosition);
 
-        }
-    if (diff%8 ==0) {
-        if (diff > 0)
-            for (int i = 0; i < diff / 8; ++i) {
-                advance(piecePosition, 8);
+    if (abs(diff)<8) {
+        toBeReturned=true;
+            for (int i = 0; i < abs(diff); ++i) {
+                std::advance(piecePosition,abs(diff)/diff);
                 toBeReturned = checkEmpty(piecePosition);
-
-            }
-        if (diff < 0)
-            for (int i = 0; i > diff / 8; --i) {
-                advance(piecePosition, -8);
-                toBeReturned = checkEmpty(piecePosition);
-
             }
     }
 
 
+    if (diff%8 ==0) {
+        toBeReturned=true;
+            for (int i = 0; i < abs(diff) / 8; ++i) {
+                advance(piecePosition, 8*abs(diff)/diff);
+                toBeReturned = checkEmpty(piecePosition);
+            }
+    }
     return toBeReturned;
 }
 
