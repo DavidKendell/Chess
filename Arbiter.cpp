@@ -144,16 +144,35 @@ bool checkEmpty(Board::iterator position) {
 
 bool checkCheck(Board::iterator King)
 
-{   int directions[] {1,-1,8,-8};
-    for (int i = 0; i < sizeof directions / sizeof *directions; ++i) {
+{   int directions[] {1,-1,8,-8,7,-7,9,-9,6,-6,15,-15,17,-17,10,-10};
+    char pieces[]{'Q','R','B','P','K'};
+    if(King->isWhite)
+        for(char piece:pieces)
+            piece= tolower(piece);
+    int counter =0;
+    for (int direction : directions) {
+        counter++;
 
-    auto currentCheckLocation=King;
-    for (int j = 0; j < 8; ++j) {
-        std::advance(currentCheckLocation,directions[i]);
-        if(!checkEmpty(currentCheckLocation))
-            break;
+        auto currentCheckLocation = King;
+        int j = 0;
+        while (j < 8) {
+        j++;
+
+            std::advance(currentCheckLocation, direction);
+            if (!checkEmpty(currentCheckLocation))
+                break;
+        }
+        if (counter < 5) {
+            if (checkEmpty(currentCheckLocation) == pieces[0] || checkEmpty(currentCheckLocation) == pieces[1])
+                return true;
+        } else if (counter < 9) {
+            if (checkEmpty(currentCheckLocation) == pieces[0] || checkEmpty(currentCheckLocation) == pieces[2])
+                return true;
+            if (j==1&& checkEmpty(currentCheckLocation)==pieces[3])
+                return true;
+
+        } else
+            if (checkEmpty(currentCheckLocation)==pieces[4]);
     }
-
-    if (reinterpret_cast<const char *>(currentCheckLocation->name) == "Queen" || reinterpret_cast<const char *>(currentCheckLocation->name) == "Rook")
-        return true;
-}}
+    }
+}
