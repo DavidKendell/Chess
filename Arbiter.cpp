@@ -1,109 +1,127 @@
 #include "Arbiter.h"
 #include <list>
-#include <iterator>
-#include <math.h>
+#include <cmath>
 
-bool checkMove(Board::iterator begin, Board::iterator initpos, int diff, bool whiteTurn)
-{
-	auto end = initpos;
-	std::advance(end, diff);
-	if (initpos->name == '\0') return false;
-	else if (initpos->isWhite != whiteTurn || end->name != '\0' &&
-		initpos->isWhite == end->isWhite) return false;
 
-	switch (initpos->name) {
-	    case 'R':
-		    return checkRook(initpos, diff);
-        case 'K':
-            return checkKnight(initpos,diff);
-        case 'B':
-            return checkBishop(initpos,diff);
-        case 'Q':
-            return checkQueen(initpos,diff);
-        case 'H':
-            return checkKing(initpos,diff);
-        case 'P':
-            return checkPawn(initpos,diff);
+bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
+	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
+	//Board::iterator startPos = newPiecePos;
+	
+	//std::advance(startPos, abs(diff));
+	//if (newPiecePos->name == '\0') return false;
+	//else if (newPiecePos->isWhite != whiteTurn || end->name != '\0' &&
+	 //checkLine(newPiecePos) && (newPiecePos->isWhite == oldPicePos->isWhite)) return false;
+	//else if (finalPos->isWhite != whiteTurn //|| end->name != '\0' &&
+		/*initpos->isWhite == end->isWhite) return false;*/
+
+	switch (oldPicePos->name) {
+	case 'R':
+		return checkRook(newPiecePos, diff);
+	case 'r':
+		return checkRook(newPiecePos, diff);
+	case 'K':
+		return checkKnight(newPiecePos, diff);
+	case 'k':
+		return checkKnight(newPiecePos, diff);
+	case 'B':
+		return checkKnight(newPiecePos, diff);
+	case 'b':
+		return checkBishop(newPiecePos, diff);
+	case 'Q':
+		return checkBishop(newPiecePos, diff);
+	case 'q':
+		return checkQueen(newPiecePos, diff);
+	case 'H':
+		return checkQueen(newPiecePos, diff);
+	case 'h':
+		return checkKing(newPiecePos, diff);
+	case 'P':
+		return checkKing(newPiecePos, diff);
+	case 'p':
+		return checkPawn(newPiecePos, diff);
+	default: return false;
 	};
 }
 
-bool checkKing(Board::iterator start, int diff)
+bool checkKing(Board::iterator piecePosition, int diff)
 {
-    if (abs(diff)<=9&& checkQueen(start,diff))
+    if (abs(diff)<=9&& checkQueen(piecePosition,diff))
 	return false;
 }
 
-bool checkQueen(Board::iterator start, int diff)
-{   if (checkRook(start,diff)|| checkBishop(start,diff)){
+bool checkQueen(Board::iterator piecePosition, int diff)
+{   if (checkRook(piecePosition,diff)|| checkBishop(piecePosition,diff)){
     return true;
 
 }
 	return false;
 }
 
-bool checkKnight(Board::iterator start, int diff)
+bool checkKnight(Board::iterator newPiecePos, int diff)
 {
-		const int moveLeft = 15;
-		const int moveRight = 17;
+	const int moveLeft = 15;
+	const int moveRight = 17;
 
-		if (diff ==  moveLeft || diff == (-moveLeft)
-			|| diff == moveRight || diff == (-moveRight)){
-
-			std::advance(start, diff);
-
-			return true;
+	if (diff == moveLeft || diff == (-moveLeft)
+		|| diff == moveRight || diff == (-moveRight)) {
+		return true;
 
 	}
 	return false;
 }
 
-bool checkBishop(Board::iterator start, int diff)
-{
+bool checkBishop(Board::iterator piecePosition, int diff)
+{ bool toBeReturned=true;
+    if (abs(diff)%9==0){
+        for (int i = 0; i < abs(diff) / 9; ++i) {
+            std::advance(piecePosition,9* abs(diff)/diff);
+            checkEmpty(piecePosition);
+        }
+    }
+    if(abs(diff)%7==0){
+        for (int i = 0; i < abs(diff)/7; ++i) {
+            std::advance(piecePosition,7*abs(diff)/diff);
+            checkEmpty(piecePosition);
+        }
+
+    }
 	return false;
 }
-bool checkLine(Board::iterator position){
-    if(position->name =='-'||position->name=='#')
-        return true;
-    return false;
-}
-bool checkRook(Board::iterator start ,int diff)
+
+bool checkRook(Board::iterator piecePosition ,int diff)
 {bool toBeReturned= false;
-    if (diff<8&&diff>0)
-        for (int i = 0; i < diff; ++i) {
-            start++;
-            toBeReturned=checkLine(start);
-        }
-    if(diff> (-8)&&diff<0)
-        for (int i = 0; i > diff; --i) {
-            start--;
-            toBeReturned =checkLine(start);
 
-        }
-    if (diff%8 ==0) {
-        if (diff > 0)
-            for (int i = 0; i < diff / 8; ++i) {
-                advance(start, 8);
-                toBeReturned = checkLine(start);
-
-            }
-        if (diff < 0)
-            for (int i = 0; i > diff / 8; --i) {
-                advance(start, -8);
-                toBeReturned = checkLine(start);
-
+    if (abs(diff)<8) {
+        toBeReturned=true;
+            for (int i = 0; i < abs(diff); ++i) {
+                std::advance(piecePosition,abs(diff)/diff);
+                toBeReturned = checkEmpty(piecePosition);
             }
     }
 
 
+    if (diff%8 ==0) {
+        toBeReturned=true;
+            for (int i = 0; i < abs(diff) / 8; ++i) {
+                advance(piecePosition, 8*abs(diff)/diff);
+                toBeReturned = checkEmpty(piecePosition);
+            }
+    }
     return toBeReturned;
 }
 
-bool checkPawn(Board::iterator start, int diff)
+bool checkPawn(Board::iterator piecePosition, int diff)
 {
-    auto newPos = start;
+    auto newPos = piecePosition;
     advance(newPos, diff);
-    bool legalWhiteMove = start->isWhite && (diff == -8 || !checkLine(newPos) && (diff == -9 || diff == -7));
-    bool legalBlackMove = !start->isWhite && (diff == 8 || !checkLine(newPos) && (diff == 9 || diff == 7));
+    bool legalWhiteMove = piecePosition->isWhite && (diff == -8 || !checkLine(newPos) && (diff == -9 || diff == -7));
+    bool legalBlackMove = !piecePosition->isWhite && (diff == 8 || !checkLine(newPos) && (diff == 9 || diff == 7));
     return legalBlackMove || legalWhiteMove;
+}
+
+bool checkEmpty(Board::iterator position) {
+	if (position->name == '-' || position->name == '#')
+		return true;
+	return false;
 }
