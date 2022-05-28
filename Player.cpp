@@ -30,7 +30,6 @@ void Player::movePiece()
 	int pieceNewPos = calculateDiff(BOARD_START, piecePosition);
 
 	bool allowedMove;
-
 	
 	Board::iterator newPiecePos = boardBegin;
 	traverseDist = calculateDiff(BOARD_START, finalPosition);
@@ -42,16 +41,24 @@ void Player::movePiece()
 
 	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff, whiteTurn);
 	if (allowedMove) {
+
+		if (oldPicePos->name == Board::whiteKing->name) {
+			Board::whiteKing = newPiecePos;
+		}
+		else if (oldPicePos->name == Board::blackKing->name) {
+			Board::blackKing = newPiecePos;
+		}
+
 		newPiecePos->name = oldPicePos->name;
 		newPiecePos->isWhite = oldPicePos->isWhite;
 		oldPicePos->name = (board->isWhite(traverseDist+1)) ? '-' : '#';
 		whiteTurn = !whiteTurn;
 	}
 
-	std::cout << "------------"<< std::endl;
-	std::cout << "is allowed move = " << allowedMove << std::endl;
-	std::cout << "diff is = " << diff << std::endl;
-	std::cout << "------------" << std::endl;
+	//std::cout << "------------"<< std::endl;
+	//std::cout << "is allowed move = " << allowedMove << std::endl;
+	//std::cout << "diff is = " << diff << std::endl;
+	//std::cout << "------------" << std::endl;
 }
 
 

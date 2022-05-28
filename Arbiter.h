@@ -11,3 +11,4 @@ bool checkBishop(Board::iterator initpos, int diff);
 bool checkRook(Board::iterator initpos, int diff);
 bool checkPawn(Board::iterator initpos, int diff, int traverseDist);
 bool checkEmpty(Board::iterator);
+bool checkCheck(Board::iterator King);

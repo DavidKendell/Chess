@@ -5,10 +5,8 @@
 
 class Board : public std::list<Piece>
 {
-	std::list<Piece>::iterator whiteKing;
-	std::list<Piece>::iterator blackKing;
-
 public:
+
 	Board();
 	void print();
 	bool isWhite(int cellNum);
@@ -16,6 +14,13 @@ public:
 	static const int BOARD_SIZE = 64;
 	static const std::string BOARD_START;
 	static const std::string BOARD_END;
+	static std::list<Piece>::iterator whiteKing;
+	static std::list<Piece>::iterator blackKing;
 };
  const std::string BOARD_START = "8a";
  const std::string BOARD_END = "1h";
+
+
+
+
+

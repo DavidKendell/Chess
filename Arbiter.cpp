@@ -4,10 +4,11 @@
 #include <iostream>
 
 
+
+
 bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
-	
 	/* ***TODO: Uncomment this to stop same colour pieces 
 		capturing each other and to stop same colour move twice
 
@@ -20,6 +21,14 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 		return false;
 	}
 	*/
+	//auto it = Board::whiteKing->name;
+	//auto king_w = Board::whiteKing;
+//std::list<Piece>::iterator king_b;
+	//Board::whiteKing = Board::begin();
+	std::cout << "whiteKing =  " << Board::whiteKing->name << std::endl;
+	std::cout << "blackKing = " << Board::blackKing->name << std::endl;
+
+
 
 	switch (oldPicePos->name) {
 	case 'R':
@@ -49,7 +58,6 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	default: return false;
 	};
 }
-//TODO: to stop king jumping over pieces stop rook first (check its todo)
 bool checkKing(Board::iterator piecePosition, int diff)
 {
 	if (abs(diff) <= 9 && checkQueen(piecePosition, diff))
@@ -189,10 +197,11 @@ bool checkEmpty(Board::iterator position) {
 bool checkCheck(Board::iterator King)
 
 {   int directions[] {1,-1,8,-8,7,-7,9,-9,6,-6,15,-15,17,-17,10,-10};
+	enum Pieces{Q=0,R=1,B=2,P=3,K=4};
     char pieces[]{'Q','R','B','P','K'};
     if(King->isWhite)
         for(char piece:pieces)
-            piece= tolower(piece);
+            piece= tolower(piece);//to be changed just before use
     int counter =0;
     for (int direction : directions) {
         counter++;
@@ -202,21 +211,21 @@ bool checkCheck(Board::iterator King)
         while (j < 8) {
         j++;
 
-            std::advance(currentCheckLocation, direction);
+            std::advance(currentCheckLocation, direction);//to change directions to 6, -12, 10, -20, 15, -30
             if (!checkEmpty(currentCheckLocation))
-                break;
+                break;//to check if what is encountered is different colour and then eventually break
         }
         if (counter < 5) {
-            if (checkEmpty(currentCheckLocation) == pieces[0] || checkEmpty(currentCheckLocation) == pieces[1])
+            if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[R])
                 return true;
         } else if (counter < 9) {
-            if (checkEmpty(currentCheckLocation) == pieces[0] || checkEmpty(currentCheckLocation) == pieces[2])
+            if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[B])
                 return true;
-            if (j==1&& checkEmpty(currentCheckLocation)==pieces[3])
+            if (j==1&& checkEmpty(currentCheckLocation)==pieces[P])
                 return true;
 
         } else
-            if (checkEmpty(currentCheckLocation)==pieces[4])
+            if (checkEmpty(currentCheckLocation)==pieces[K])
                 return true;
     }
     return false;

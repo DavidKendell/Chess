@@ -1,6 +1,8 @@
 #include "Board.h"
 #include <iostream>
 
+std::list<Piece>::iterator Board::whiteKing;
+std::list<Piece>::iterator Board::blackKing;
 
 Board::Board()
 {
@@ -17,8 +19,6 @@ Board::Board()
 			p.name = 'P';
 		}
 		else if (i > 2 * DIM - 1 && i < BOARD_SIZE - 2 * DIM) {
-			//p.isWhite = isWhite(i + 1);
-
 			p.name = (isWhite(i + 1)) ? '-' : '#';
 		}
 		else if (i > BOARD_SIZE - 2 * DIM - 1 && i < BOARD_SIZE - DIM) {
@@ -32,7 +32,13 @@ Board::Board()
 		Board::push_back(p);
 
 	}
+
+	Board::whiteKing = Board::end();
+	advance(whiteKing, -4);
+	Board::blackKing = Board::begin();
+	advance(blackKing, 4);
 }
+
 
 void Board::print()
 {
