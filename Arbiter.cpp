@@ -21,14 +21,6 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 		return false;
 	}
 	*/
-	//auto it = Board::whiteKing->name;
-	//auto king_w = Board::whiteKing;
-//std::list<Piece>::iterator king_b;
-	//Board::whiteKing = Board::begin();
-	std::cout << "whiteKing =  " << Board::whiteKing->name << std::endl;
-	std::cout << "blackKing = " << Board::blackKing->name << std::endl;
-
-
 
 	switch (oldPicePos->name) {
 	case 'R':
