@@ -27,35 +27,43 @@ void Player::movePiece()
 
 	int diff = calculateDiff(piecePosition, finalPosition);//d
 	//int pieceOldPos = calculateDiff(piecePosition, BOARD_END);//*BOARD_START instead
-	int traverseDist;
+	int oldPosTraverseDist, newPosTraverseDist;
 	int pieceNewPos = calculateDiff(BOARD_START, piecePosition);
 
 	bool allowedMove;
 	
 	Board::iterator newPiecePos = boardBegin;
-	traverseDist = calculateDiff(BOARD_START, finalPosition);
-	std::advance(newPiecePos, traverseDist);
+	newPosTraverseDist = calculateDiff(BOARD_START, finalPosition);
+	std::advance(newPiecePos, newPosTraverseDist);
 
 
 	Board::iterator oldPicePos = boardBegin;
-	traverseDist = calculateDiff(BOARD_START, piecePosition);
-	std::advance(oldPicePos, traverseDist);
+	oldPosTraverseDist = calculateDiff(BOARD_START, piecePosition);
+	std::advance(oldPicePos, oldPosTraverseDist);
 
-	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, traverseDist, diff, whiteTurn);
+	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, oldPosTraverseDist, diff, whiteTurn);
 	if (allowedMove) {
 
-		if (oldPicePos->name == Board::whiteKing->name) {
-			Board::whiteKing = newPiecePos;
+		checkCheck(board->getWhiteKing(), board->getWhiteKingPos());
+
+		if (oldPicePos->name == board->getWhiteKing()->name) {
+			board->setWhiteKing(newPiecePos, newPosTraverseDist);
 		}
-		else if (oldPicePos->name == Board::blackKing->name) {
-			Board::blackKing = newPiecePos;
+		else if (oldPicePos->name == board->getBlackKing()->name) {
+			board->setBlackKing(newPiecePos, newPosTraverseDist);
 		}
 
 		newPiecePos->name = oldPicePos->name;
 		newPiecePos->isWhite = oldPicePos->isWhite;
-		oldPicePos->name = (board->isWhite(traverseDist+1)) ? '-' : '#';
+		oldPicePos->name = (board->isWhite(oldPosTraverseDist +1)) ? '-' : '#';
 
-		//checkCheck(Board::whiteKing);
+
+		//std::cout << "\nNew white king pos = " << board->getWhiteKingPos() << std::endl;
+		//std::cout << "\nNew white king name = " << board->getWhiteKing()->name << std::endl;
+		//std::cout << "\nNew black king pos = " << board->getBlackKingPos() << std::endl;
+		//std::cout << "\nNew black king name = " << board->getBlackKing()->name << std::endl;
+
+
 
 
 		whiteTurn = !whiteTurn;

@@ -4,8 +4,6 @@
 #include <iostream>
 
 
-
-
 bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
@@ -187,8 +185,7 @@ bool checkEmpty(Board::iterator position) {
 	return false;
 }
 
-bool checkCheck(Board::iterator King)
-
+bool checkCheck(Board::iterator King, int kingPosition)
 {   int directions[] {1,-1,8,-8,7,-7,9,-9,6,-6,15,-15,17,-17,10,-10};
 	enum Pieces{Q=0,R=1,B=2,P=3,K=4};
     char pieces[]{'Q','R','B','P','K'};
@@ -196,31 +193,38 @@ bool checkCheck(Board::iterator King)
         for(char& piece:pieces)
             piece= tolower(piece);
     int counter =0;
-    for (int direction : directions) {
-        counter++;
+	for (int direction : directions) {
+		counter++;
 
-        auto currentCheckLocation = King;
-        int j = 0;
-        while (j < 8) {
-        j++;
+		auto currentCheckLocation = King;
+		int j = 0;
+		while (j < 8) {
+			j++;
 
-            std::advance(currentCheckLocation, direction);
-            if (!checkEmpty(currentCheckLocation))
-                break;//to check if what is encountered is different colour and then eventually break
-        }
-        if (counter < 5) {
-            if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[R])
-                return true;
-        } else if (counter < 9) {
-            if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[B])
-                return true;
-            if (j==1&& checkEmpty(currentCheckLocation)==pieces[P])
-                return true;
+			if (kingPosition + direction< Board::BOARD_SIZE) {
+				std::advance(currentCheckLocation, direction);
+				//std::cout << currentCheckLocation->name << std::endl;
 
-        } else
-            if (checkEmpty(currentCheckLocation)==pieces[K])
-                return true;
-    }
+				if (!checkEmpty(currentCheckLocation))
+					break;//to check if what is encountered is different colour and then eventually break
+
+				if (counter < 5) {
+					if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[R])
+						return true;
+				}
+				else if (counter < 9) {
+					if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[B])
+						return true;
+					if (j == 1 && checkEmpty(currentCheckLocation) == pieces[P])
+						return true;
+
+				}
+				else
+					if (checkEmpty(currentCheckLocation) == pieces[K])
+						return true;
+			}
+		}
+	}
     return false;
     }
 

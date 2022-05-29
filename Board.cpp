@@ -1,8 +1,6 @@
 #include "Board.h"
 #include <iostream>
 
-std::list<Piece>::iterator Board::whiteKing;
-std::list<Piece>::iterator Board::blackKing;
 
 Board::Board()
 {
@@ -33,10 +31,35 @@ Board::Board()
 
 	}
 
-	Board::whiteKing = Board::end();
+	whiteKing = Board::end();
 	advance(whiteKing, -4);
-	Board::blackKing = Board::begin();
+	whiteKingPosiiton = 60;
+	blackKing = Board::begin();
 	advance(blackKing, 4);
+	blackKingPosition = 4;
+}
+
+
+std::list<Piece>::iterator Board::getWhiteKing()const {
+	return whiteKing;
+}
+
+std::list<Piece>::iterator Board::getBlackKing()const {
+	return blackKing;
+}
+int Board::getWhiteKingPos()const {
+	return whiteKingPosiiton;
+}
+int Board::getBlackKingPos()const {
+	return blackKingPosition;
+}
+void Board::setWhiteKing(const std::list<Piece>::iterator& _whiteKing, int kingPos) {
+	whiteKing = _whiteKing;
+	whiteKingPosiiton = kingPos;
+}
+void Board::setBlackKing(const std::list<Piece>::iterator& blackKing, int kingPos) {
+	Board::blackKing = blackKing;
+	Board::blackKingPosition = kingPos;
 }
 
 
