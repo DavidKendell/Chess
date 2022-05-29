@@ -21,11 +21,12 @@ void Player::movePiece()
 	std::cout << "Move to where?\n";
 	std::cin >> finalPosition;
 
+	if (!isAllowedInput(piecePosition, finalPosition)) return;
 
 	auto boardBegin = board->begin();
 
 	int diff = calculateDiff(piecePosition, finalPosition);//d
-	int pieceOldPos = calculateDiff(piecePosition, BOARD_END);
+	//int pieceOldPos = calculateDiff(piecePosition, BOARD_END);//*BOARD_START instead
 	int traverseDist;
 	int pieceNewPos = calculateDiff(BOARD_START, piecePosition);
 
@@ -34,6 +35,7 @@ void Player::movePiece()
 	Board::iterator newPiecePos = boardBegin;
 	traverseDist = calculateDiff(BOARD_START, finalPosition);
 	std::advance(newPiecePos, traverseDist);
+
 
 	Board::iterator oldPicePos = boardBegin;
 	traverseDist = calculateDiff(BOARD_START, piecePosition);
@@ -52,6 +54,10 @@ void Player::movePiece()
 		newPiecePos->name = oldPicePos->name;
 		newPiecePos->isWhite = oldPicePos->isWhite;
 		oldPicePos->name = (board->isWhite(traverseDist+1)) ? '-' : '#';
+
+		//checkCheck(Board::whiteKing);
+
+
 		whiteTurn = !whiteTurn;
 	}
 
@@ -60,6 +66,7 @@ void Player::movePiece()
 	//std::cout << "diff is = " << diff << std::endl;
 	//std::cout << "------------" << std::endl;
 }
+
 
 
 int Player::calculateDiff(std::string piecePosition, std::string finalPosition) {
@@ -72,4 +79,23 @@ int Player::calculateDiff(std::string piecePosition, std::string finalPosition) 
 	int newPos = resultColumn - resultRow;
 
 	return newPos;
+}
+
+bool Player::isAllowedInput(std::string piecePosition, std::string finalPosition) {
+	std::string userInput = piecePosition + finalPosition;
+	std::string boardNotation = "12345678abcdefgh";
+	for (char& input : userInput) {
+		if (boardNotation.find(input) == std::string::npos) {
+			std::cout << "\n\nOnly board notation moves allowed (lowercase)\n" << std::endl;
+			return false;
+		}
+	}
+	if (!isdigit(piecePosition[0]) || !isdigit(finalPosition[0]) ||
+		!isalpha(piecePosition[1]) || !isalpha(finalPosition[1])) {
+		std::cout << "\n\nCommands need to be single digit followed by single character.\n" << std::endl;
+		return false;
+	}
+
+	return true;
+
 }

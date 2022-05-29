@@ -8,6 +8,7 @@ private:
 public:
 	Player(Board *board);
 	void movePiece();
+	bool isAllowedInput(std::string piecePosition, std::string finalPosition);
 	//int calculateMove(std::string piecePosition, std::string finalPosition);
 	int calculateDiff(std::string piecePosition, std::string finalPosition);
 };

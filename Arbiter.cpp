@@ -22,6 +22,7 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	}
 	*/
 
+
 	switch (oldPicePos->name) {
 	case 'R':
 		return checkRook(oldPicePos, diff);
@@ -192,8 +193,8 @@ bool checkCheck(Board::iterator King)
 	enum Pieces{Q=0,R=1,B=2,P=3,K=4};
     char pieces[]{'Q','R','B','P','K'};
     if(King->isWhite)
-        for(char piece:pieces)
-            piece= tolower(piece);//to be changed just before use
+        for(char& piece:pieces)
+            piece= tolower(piece);
     int counter =0;
     for (int direction : directions) {
         counter++;
@@ -203,7 +204,7 @@ bool checkCheck(Board::iterator King)
         while (j < 8) {
         j++;
 
-            std::advance(currentCheckLocation, direction);//to change directions to 6, -12, 10, -20, 15, -30
+            std::advance(currentCheckLocation, direction);
             if (!checkEmpty(currentCheckLocation))
                 break;//to check if what is encountered is different colour and then eventually break
         }
@@ -222,3 +223,10 @@ bool checkCheck(Board::iterator King)
     }
     return false;
     }
+
+
+/*
+	1. Copy the king position
+	2. 
+
+*/
