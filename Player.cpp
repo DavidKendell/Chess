@@ -78,6 +78,9 @@ void Player::movePiece()
 		
 
 	}
+	else {
+		std::cout << "\nNot allowed move\n" << std::endl;
+	}
 
 	//std::cout << "------------"<< std::endl;
 	//std::cout << "is allowed move = " << allowedMove << std::endl;
