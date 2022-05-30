@@ -7,8 +7,8 @@
 bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 	Board::iterator oldPicePos, int traverseDist, int diff, bool whiteTurn) {
 
-	/* ***TODO: Uncomment this to stop same colour pieces 
-		capturing each other and to stop same colour move twice
+	 //***TODO: Uncomment this to stop same colour pieces 
+		//capturing each other and to stop same colour move twice
 
 	if (oldPicePos->isWhite != whiteTurn) {
 		std::cout << "\nIt is not your turn" << std::endl;
@@ -18,7 +18,7 @@ bool checkMove(Board::iterator boardBegin, Board::iterator newPiecePos,
 		std::cout << "\nCan't capture same colour piece." << std::endl;
 		return false;
 	}
-	*/
+	
 
 
 	switch (oldPicePos->name) {
@@ -102,7 +102,7 @@ int iterations = abs(diff) / 9;
 				return true;
             toBeReturned=checkEmpty(piecePosition);
 			//**TODO: uncomment bottom line to stop bishop jump over/skip other pieces
-			//if (!toBeReturned) return false;
+			if (!toBeReturned) return false;
         }
     }
     if(abs(diff)%7==0){
@@ -114,7 +114,7 @@ int iterations = abs(diff) / 9;
             std::advance(piecePosition,7*abs(diff)/diff);
             toBeReturned=checkEmpty(piecePosition);
 			//**TODO: uncomment bottom line to stop bishop jump over/skip other pieces
-			//if (!toBeReturned) return false;
+			if (!toBeReturned) return false;
         }				
 
     }
@@ -136,7 +136,7 @@ int iterations;
                 std::advance(piecePosition,abs(diff)/diff);
                 toBeReturned = checkEmpty(piecePosition);
 				//**TODO: uncomment bottom line to stop rook jump over/skip other pieces
-				//if (!toBeReturned) return false;
+				if (!toBeReturned) return false;
             }
     }
 
@@ -152,7 +152,7 @@ int iterations;
 			advance(piecePosition, 8 * abs(diff) / diff);
 			toBeReturned = checkEmpty(piecePosition);
 			//**TODO: uncomment bottom line to stop rook jump over/skip other pieces
-			//if (!toBeReturned) return false;
+			if (!toBeReturned) return false;
 		}
 	}
     return toBeReturned;
@@ -186,60 +186,57 @@ bool checkEmpty(Board::iterator position) {
 }
 
 bool checkCheck(Board::iterator King, int kingPosition)
-{   int directions[] {1,-1,8,-8,7,-7,9,-9,6,-6,15,-15,17,-17,10,-10};
-	enum Pieces{Q=0,R=1,B=2,P=3,K=4};
-    char pieces[]{'Q','R','B','P','K'};
-    if(King->isWhite)
-        for(char& piece:pieces)
-            piece= tolower(piece);
-    int counter =0;
+{
+	int directions[]{ 1,-1,8,-8,7,-7,9,-9,6,-6,15,-15,17,-17,10,-10 };
+	enum Pieces { Q = 0, R = 1, B = 2, P = 3, K = 4 };
+	char pieces[]{ 'Q','R','B','P','K' };
+	if (!King->isWhite)
+		for (char& piece : pieces)
+			piece = tolower(piece);
+	int counter = 0;
 	for (int direction : directions) {
 		counter++;
 
 		auto currentCheckLocation = King;
 		int j = 0;
-		while (j < 8) {
-			j++;
 
-			if (kingPosition + direction < Board::BOARD_SIZE) {
+		while (j < Board::DIM) {
+			j++;
+			int nextKingPos = kingPosition + (direction * j);
+			if (nextKingPos < Board::BOARD_SIZE && nextKingPos >=0) {
+
 				std::advance(currentCheckLocation, direction);
 				//std::cout << currentCheckLocation->name << std::endl;
-
 				if (!checkEmpty(currentCheckLocation))
-					break;//to check if what is encountered is different colour and then eventually break
-
-				if (counter < 5) {
-					if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[R])
-						return true;
-				}
-				else if (counter < 9) {
-					if (checkEmpty(currentCheckLocation) == pieces[Q] || checkEmpty(currentCheckLocation) == pieces[B])
-						return true;
-					if (j == 1 && checkEmpty(currentCheckLocation) == pieces[P])
-						return true;
-
-				}
-				else
-					if (checkEmpty(currentCheckLocation) == pieces[K])
-						return true;
+					break;
 			}
 			else break;
 		}
+		if (counter < 5) {
+			if (currentCheckLocation->name == pieces[Q] || currentCheckLocation->name == pieces[R])
+				return true;
+		}
+		else if (counter < 9) {
+			if (currentCheckLocation->name == pieces[Q] || currentCheckLocation->name == pieces[B])
+				return true;
+			if (j == 1 && (currentCheckLocation->name == pieces[P]))
+				return true;
+		}
+		else
+			if (currentCheckLocation->name == pieces[K])
+				return true;
+		
+
+
 	}
-    return false;
-    }
-
-
-/*
-	1. Copy the king position
-	2. 
-
-*/
+	return false;
+}
 
 
 void doMove(const Board::iterator newPiecePos, const Board::iterator oldPicePos, const int oldPosTraverseDist) {
 	newPiecePos->name = oldPicePos->name;
 	newPiecePos->isWhite = oldPicePos->isWhite;
+	
 	oldPicePos->name = (isWhite(oldPosTraverseDist + 1)) ? '-' : '#';
 }
 void undoMove(const Board::iterator newPiecePos, const Board::iterator oldPicePos,const int oldPosTraverseDist, const int diff) {

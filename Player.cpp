@@ -20,6 +20,7 @@ void Player::movePiece()
 	std::cin >> piecePosition;
 	std::cout << "Move to where?\n";
 	std::cin >> finalPosition;
+	std::cout << std::endl;
 
 	if (!isAllowedInput(piecePosition, finalPosition)) return;
 
@@ -43,29 +44,39 @@ void Player::movePiece()
 	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, oldPosTraverseDist, diff, whiteTurn);
 	if (allowedMove) {
 
-		checkCheck(board->getWhiteKing(), board->getWhiteKingPos());
 
-		if (oldPicePos->name == board->getWhiteKing()->name) {
-			board->setWhiteKing(newPiecePos, newPosTraverseDist);
-		}
-		else if (oldPicePos->name == board->getBlackKing()->name) {
-			board->setBlackKing(newPiecePos, newPosTraverseDist);
-		}
+			if (oldPicePos->name == board->getWhiteKing()->name) {
+				board->setWhiteKing(newPiecePos, newPosTraverseDist);
+			}
+			else if (oldPicePos->name == board->getBlackKing()->name) {
+				board->setBlackKing(newPiecePos, newPosTraverseDist);
+			}
 
-		//newPiecePos->name = oldPicePos->name;
-		//newPiecePos->isWhite = oldPicePos->isWhite;
-		//oldPicePos->name = (isWhite(oldPosTraverseDist +1)) ? '-' : '#';
-
-		doMove(newPiecePos, oldPicePos, oldPosTraverseDist);
-
-
-		//std::cout << "\nNew white king pos = " << board->getWhiteKingPos() << std::endl;
-		//std::cout << "\nNew white king name = " << board->getWhiteKing()->name << std::endl;
-		//std::cout << "\nNew black king pos = " << board->getBlackKingPos() << std::endl;
-		//std::cout << "\nNew black king name = " << board->getBlackKing()->name << std::endl;
+			if (newPiecePos->name == 'h' || newPiecePos->name == 'H') {
+				doMove(newPiecePos, oldPicePos, oldPosTraverseDist);
+				board->print();
+				std::cout << "\n**** CHECK MATE ****\n" << std::endl;
+				exit(0);
+			}
+			doMove(newPiecePos, oldPicePos, oldPosTraverseDist);
 
 
-		whiteTurn = !whiteTurn;
+			bool checkWhiteKing, checkBlackKing;
+			checkWhiteKing = checkCheck(board->getWhiteKing(), board->getWhiteKingPos());
+			checkBlackKing = checkCheck(board->getBlackKing(), board->getBlackKingPos());
+			if (checkWhiteKing || checkBlackKing)
+				std::cout << "\n*** Check! ***\n" << std::endl;
+
+
+			//std::cout << "\nNew white king pos = " << board->getWhiteKingPos() << std::endl;
+			//std::cout << "\nNew white king name = " << board->getWhiteKing()->name << std::endl;
+			//std::cout << "\nNew black king pos = " << board->getBlackKingPos() << std::endl;
+			//std::cout << "\nNew black king name = " << board->getBlackKing()->name << std::endl;
+
+
+			whiteTurn = !whiteTurn;
+		
+
 	}
 
 	//std::cout << "------------"<< std::endl;
