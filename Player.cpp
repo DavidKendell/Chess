@@ -24,22 +24,21 @@ void Player::movePiece()
 	if (!isAllowedInput(piecePosition, finalPosition)) return;
 
 	auto boardBegin = board->begin();
-
 	int diff = calculateDiff(piecePosition, finalPosition);//d
 	//int pieceOldPos = calculateDiff(piecePosition, BOARD_END);//*BOARD_START instead
 	int oldPosTraverseDist, newPosTraverseDist;
 	int pieceNewPos = calculateDiff(BOARD_START, piecePosition);
-
 	bool allowedMove;
 	
 	Board::iterator newPiecePos = boardBegin;
 	newPosTraverseDist = calculateDiff(BOARD_START, finalPosition);
 	std::advance(newPiecePos, newPosTraverseDist);
 
-
 	Board::iterator oldPicePos = boardBegin;
 	oldPosTraverseDist = calculateDiff(BOARD_START, piecePosition);
 	std::advance(oldPicePos, oldPosTraverseDist);
+
+
 
 	allowedMove = checkMove(boardBegin, newPiecePos, oldPicePos, oldPosTraverseDist, diff, whiteTurn);
 	if (allowedMove) {
@@ -53,17 +52,17 @@ void Player::movePiece()
 			board->setBlackKing(newPiecePos, newPosTraverseDist);
 		}
 
-		newPiecePos->name = oldPicePos->name;
-		newPiecePos->isWhite = oldPicePos->isWhite;
-		oldPicePos->name = (board->isWhite(oldPosTraverseDist +1)) ? '-' : '#';
+		//newPiecePos->name = oldPicePos->name;
+		//newPiecePos->isWhite = oldPicePos->isWhite;
+		//oldPicePos->name = (isWhite(oldPosTraverseDist +1)) ? '-' : '#';
+
+		doMove(newPiecePos, oldPicePos, oldPosTraverseDist);
 
 
 		//std::cout << "\nNew white king pos = " << board->getWhiteKingPos() << std::endl;
 		//std::cout << "\nNew white king name = " << board->getWhiteKing()->name << std::endl;
 		//std::cout << "\nNew black king pos = " << board->getBlackKingPos() << std::endl;
 		//std::cout << "\nNew black king name = " << board->getBlackKing()->name << std::endl;
-
-
 
 
 		whiteTurn = !whiteTurn;

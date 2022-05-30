@@ -13,3 +13,5 @@ bool checkPawn(Board::iterator initpos, int diff, int traverseDist);
 bool checkEmpty(Board::iterator);
 //bool checkCheck(Board::iterator King);
 bool checkCheck(Board::iterator King, int kingPosition);
+void doMove(const Board::iterator newPiecePos, const Board::iterator oldPicePos, const int oldPosTraverseDist);
+void undoMove(const Board::iterator newPiecePos, const Board::iterator oldPicePos, const int oldPosTraverseDist, const int diff);

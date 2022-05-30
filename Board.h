@@ -15,7 +15,6 @@ public:
 
 	Board();
 	void print();
-	bool isWhite(int cellNum);
 	std::list<Piece>::iterator getWhiteKing()const;
 	std::list<Piece>::iterator getBlackKing()const;
 	int getWhiteKingPos()const;
@@ -28,6 +27,7 @@ public:
 	static const std::string BOARD_END;
 
 };
+bool isWhite(int cellNum);
  const std::string BOARD_START = "8a";
  const std::string BOARD_END = "1h";
 

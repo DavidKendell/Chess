@@ -201,7 +201,7 @@ bool checkCheck(Board::iterator King, int kingPosition)
 		while (j < 8) {
 			j++;
 
-			if (kingPosition + direction< Board::BOARD_SIZE) {
+			if (kingPosition + direction < Board::BOARD_SIZE) {
 				std::advance(currentCheckLocation, direction);
 				//std::cout << currentCheckLocation->name << std::endl;
 
@@ -223,6 +223,7 @@ bool checkCheck(Board::iterator King, int kingPosition)
 					if (checkEmpty(currentCheckLocation) == pieces[K])
 						return true;
 			}
+			else break;
 		}
 	}
     return false;
@@ -234,3 +235,19 @@ bool checkCheck(Board::iterator King, int kingPosition)
 	2. 
 
 */
+
+
+void doMove(const Board::iterator newPiecePos, const Board::iterator oldPicePos, const int oldPosTraverseDist) {
+	newPiecePos->name = oldPicePos->name;
+	newPiecePos->isWhite = oldPicePos->isWhite;
+	oldPicePos->name = (isWhite(oldPosTraverseDist + 1)) ? '-' : '#';
+}
+void undoMove(const Board::iterator newPiecePos, const Board::iterator oldPicePos,const int oldPosTraverseDist, const int diff) {
+	oldPicePos->name = newPiecePos->name;
+	oldPicePos->isWhite = newPiecePos->isWhite;
+	newPiecePos->name = (isWhite((oldPosTraverseDist + diff) + 1) ? '-' : '#');
+
+	//std::cout << "oldPicePos->name" << oldPicePos->name << std::endl;
+	//std::cout << "oldPicePos->isWhite" << oldPicePos->isWhite << std::endl;
+	//std::cout << "newPiecePos->name" << newPiecePos->name << std::endl;
+}

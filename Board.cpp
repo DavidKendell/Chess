@@ -86,11 +86,11 @@ void Board::print()
 	std::cout << "   A  B  C  D  E  F  G  H " << std::endl;
 }
 
-bool Board::isWhite(int cellNum) {
+bool isWhite(int cellNum) {
 
 	bool isBlank = true;
 	for (int i = 1; i < cellNum; i++) {
-		if (i % DIM == 0) continue;
+		if (i % Board::DIM == 0) continue;
 		isBlank = (isBlank) ? false : true;
 	}
 	return isBlank;
